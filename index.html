@@ -24,7 +24,7 @@
   --OW: #F2E9EA;  /* offwhite bg */
   --W:  #FFFFFF;
   --T:  #2a0a0a;  /* text primary */
-  --T2: #3d0d0d;  /* text secondary - dark */
+  --T2: #3d0d0d;  /* text secondary */
   --BD: #d4b8b8;  /* border */
   --SH: rgba(100,20,20,.13);
   --G:  #166534;  /* green success */
@@ -151,10 +151,10 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .qhead-right{text-align:right}
 .qhead-badge{background:var(--CR);color:var(--M);font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.07em;text-transform:uppercase;display:inline-block}
 .qhead-ref{font-size:10px;color:rgba(255,255,255,.9);margin-top:3px;font-weight:500}
-.qbody{padding:16px 18px;background:#ffffff}
+.qbody{padding:16px 18px}
 
 /* client block */
-.cli-block{background:#f9f0f0;border:1px solid #d4a0a0;border-radius:var(--RB);padding:10px 12px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
+.cli-block{background:var(--OW);border:1px solid var(--BD);border-radius:var(--RB);padding:10px 12px;margin-bottom:12px;display:flex;gap:10px;align-items:center}
 .cli-av{width:40px;height:40px;flex-shrink:0;background:var(--M);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--CR)}
 .cli-name{font-size:14px;font-weight:600;color:var(--M)}
 .cli-sub{font-size:11px;color:#3d0505;margin-top:1px;line-height:1.5;font-weight:500}
@@ -165,23 +165,23 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .qtile{background:var(--M);border-radius:var(--RB);padding:10px 8px;text-align:center}
 .qtile.lt{background:var(--CRL);border:1px solid var(--CR)}
 .qtile-lbl{font-size:9px;color:rgba(255,255,255,.9);margin-bottom:2px;font-weight:600}
-.qtile.lt .qtile-lbl{color:#5e1111;font-weight:600}
-.qtile-val{font-size:13px;font-weight:700;color:#ffffff;line-height:1.2;word-break:break-word}
-.qtile.lt .qtile-val{color:#5e1111;font-weight:800}
+.qtile.lt .qtile-lbl{color:var(--T2)}
+.qtile-val{font-size:13px;font-weight:700;color:var(--W);line-height:1.2;word-break:break-word}
+.qtile.lt .qtile-val{color:var(--M)}
 
 /* maturity */
 .mat-box{background:linear-gradient(135deg,var(--M) 0%,var(--M2) 100%);border-radius:var(--RB);padding:14px;margin-bottom:12px;overflow:hidden;position:relative}
 .mat-box::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:radial-gradient(circle,rgba(216,201,180,.2) 0%,transparent 70%)}
-.mat-lbl{font-size:9px;color:#f5e6c8;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
-.mat-val{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#ffffff;line-height:1;margin-bottom:2px;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.mat-lbl{font-size:9px;color:var(--CR);font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:5px}
+.mat-val{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--W);line-height:1;margin-bottom:2px}
 .mat-sub{font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
 
 /* key features */
 .feat-box{background:#fdf5f5;border:1px solid #e8c8c8;border-radius:var(--RB);padding:12px;margin-bottom:12px}
-.feat-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5e1111;margin-bottom:8px}
+.feat-title{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--M);margin-bottom:8px}
 .feat-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:6px;font-size:12px}
 .feat-item:last-child{margin-bottom:0}
-.feat-dot{width:16px;height:16px;flex-shrink:0;border-radius:50%;background:#d4a0a0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.feat-dot{width:16px;height:16px;flex-shrink:0;border-radius:50%;background:var(--ML);display:flex;align-items:center;justify-content:center;margin-top:1px}
 .feat-dot svg{width:10px;height:10px;stroke:var(--M);stroke-width:2.5}
 .feat-txt strong{color:#1a0505;font-weight:700}
 .feat-txt span{color:#1a0505}
@@ -196,17 +196,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .qf-right{text-align:right;font-size:10px;color:rgba(255,255,255,.85);line-height:1.5}
 
 /* quote section label */
-.q-sec{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#5e1111;margin-bottom:7px;padding-left:1px}
-.prem-breakdown{border:1px solid var(--BD);border-radius:var(--RB);overflow:hidden;margin-bottom:12px}
-.prem-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--OW);font-size:12px}
-.prem-row:last-child{border-bottom:none}
-.prem-row.total-row{background:var(--M);padding:10px 12px}
-.prem-row.total-row .prem-lbl{color:rgba(255,255,255,.85);font-weight:500;font-size:12px}
-.prem-row.total-row .prem-val{color:#ffffff;font-weight:800;font-size:14px}
-.prem-row .prem-lbl{color:#1a0505;font-weight:500}
-.prem-row .prem-val{color:#1a0505;font-weight:700;font-size:13px}
-.prem-row.dab-row-style .prem-lbl{color:#166534}
-.prem-row.dab-row-style .prem-val{color:#166534}
+.q-sec{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--T2);margin-bottom:6px;padding-left:1px}
 
 /* ═══════════════════════════════════════════
    HISTORY TAB
@@ -229,14 +219,6 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .sync-fail{background:#fee2e2;color:#991b1b}
 .sync-pending{background:#fef3c7;color:#92400e}
 .sync-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-
-/* ═══════════════════════════════════════════
-   IMAGE EXPORT STYLES
-═══════════════════════════════════════════ */
-.img-saving-overlay{position:fixed;inset:0;background:rgba(94,17,17,.85);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.img-saving-spinner{width:48px;height:48px;border:4px solid rgba(216,201,180,.3);border-top-color:var(--CR);border-radius:50%;animation:spin .8s linear infinite}
-.img-saving-text{color:var(--CR);font-size:15px;font-weight:500}
-@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ═══════════════════════════════════════════
    PRINT
@@ -268,6 +250,77 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .setting-lbl{font-size:13px;color:var(--T)}
 .setting-val{font-size:13px;color:var(--T2)}
 .setting-tag{background:var(--ML);color:var(--M);font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px}
+
+/* ── POLICY SUMMARY TABLE (Options A & B) ── */
+.pol-tbl{width:100%;border-collapse:collapse;margin-bottom:12px;border:1px solid var(--BD);border-radius:var(--RB);overflow:hidden;table-layout:fixed}
+.pol-tbl thead tr{background:var(--M)}
+.pol-tbl thead th{padding:7px 6px;font-size:9px;font-weight:700;color:rgba(255,255,255,.9);text-align:center;letter-spacing:.04em;text-transform:uppercase;border-right:1px solid rgba(255,255,255,.15)}
+.pol-tbl thead th:first-child{width:58px;color:rgba(255,255,255,.4);padding:7px 4px;text-align:center}
+.pol-tbl thead th:nth-child(2){text-align:left;padding-left:8px}
+.pol-tbl thead th:nth-child(3){width:120px}
+.pol-tbl thead th:nth-child(4){width:50px}
+.pol-tbl thead th:last-child{border-right:none;width:110px}
+.pol-tbl tbody td{padding:9px 6px;border-right:1px solid #edd8d8;border-bottom:1px solid #edd8d8;vertical-align:middle;font-size:11px;color:#1a0505}
+.pol-tbl tbody td:nth-child(2){padding-left:8px}
+.pol-tbl tbody td:last-child{border-right:none}
+.pol-tbl tbody tr:last-child td{border-bottom:none}
+.pol-tbl tbody tr.row-a{background:#fdf5f5}
+.pol-tbl tbody tr.row-b{background:#f5ede0}
+.opt-badge{display:block;font-size:9px;font-weight:700;padding:3px 4px;border-radius:8px;text-align:center;white-space:nowrap}
+.badge-a{background:#f5dede;color:#641414}
+.badge-b{background:#D8C9B4;color:#5E1411}
+.ben-type{font-size:12px;font-weight:700;color:#1a0505;margin-bottom:5px}
+.ben-lbl{font-size:9px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em}
+.ben-val{font-size:11px;font-weight:700;color:#5e1111}
+.ben-dab-val{font-size:11px;font-weight:700;color:#5E1411}
+.ben-divider{height:1px;background:#edd8d8;margin:5px 0}
+.val-prem{font-size:12px;font-weight:800;color:#1a0505;text-align:center;white-space:nowrap}
+.val-freq{font-size:9px;color:#888;text-align:center;margin-top:1px}
+.val-term{font-size:12px;font-weight:700;color:#1a0505;text-align:center}
+.val-mat{font-size:11px;font-weight:800;color:#641414;text-align:center;white-space:nowrap}
+/* ── SIDE-BY-SIDE BREAKDOWN ── */
+.bd-compare{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.bd-col{border:1px solid var(--BD);border-radius:var(--RB);overflow:hidden}
+.bd-col-head{padding:7px 10px;font-size:10px;font-weight:700;letter-spacing:.03em;text-align:center}
+.bd-col-head.a-head{background:#f5dede;color:#641414}
+.bd-col-head.b-head{background:#D8C9B4;color:#5E1411}
+.bd-line{display:flex;justify-content:space-between;padding:6px 10px;border-bottom:1px solid var(--OW);font-size:11px;align-items:center}
+.bd-line:last-child{border-bottom:none;background:var(--M)}
+.bd-line:last-child .bl-lbl,.bd-line:last-child .bl-val{color:#fff}
+.bd-line:last-child .bl-lbl{font-weight:400;color:rgba(255,255,255,.8)}
+.bd-line:last-child .bl-val{font-weight:800}
+.bl-lbl{color:#1a0505;font-weight:500}
+.bl-val{color:#1a0505;font-weight:700}
+.bl-dab-lbl{color:#5E1411;font-weight:700}
+.bl-dab-val{color:#5E1411;font-weight:700}
+.bl-nil{color:#bbb;font-style:italic;font-size:10px}
+
+/* ── OPTIONS A & B CARD LAYOUT ── */
+.opt-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.opt-card{border-radius:var(--RB);overflow:hidden;border:1px solid var(--BD)}
+.opt-card-head{padding:10px 12px}
+.opt-card-head.head-a{background:#641414}
+.opt-card-head.head-b{background:#D8C9B4}
+.opt-card-badge{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.head-a .opt-card-badge{color:rgba(255,255,255,.65)}
+.head-b .opt-card-badge{color:#5E1411}
+.opt-card-title{font-size:15px;font-weight:700;line-height:1.2}
+.head-a .opt-card-title{color:#ffffff}
+.head-b .opt-card-title{color:#3d0d0d}
+.opt-card-body{padding:10px 12px;background:#ffffff}
+.opt-card-row{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid #f2e9ea;gap:8px}
+.opt-card-row:last-child{border-bottom:none}
+.opt-card-lbl{font-size:10px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0;padding-top:1px}
+.opt-card-val{font-size:13px;font-weight:800;color:#1a0505;text-align:right}
+.opt-card-val.prem-val{color:#641414;font-size:15px}
+.opt-card-val.mat-val{color:#641414}
+.opt-card-val .freq{display:block;font-size:10px;font-weight:400;color:#888;margin-top:1px}
+.opt-card-dab{font-size:11px;font-weight:700;color:#5E1411;text-align:right;margin-top:2px}
+/* ── PREM BREAKDOWN (legacy - keep for compat) ── */
+.prem-breakdown{border:1px solid var(--BD);border-radius:var(--RB);overflow:hidden;margin-bottom:12px}
+.prem-row{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid var(--OW);font-size:12px}
+.prem-row:last-child{border-bottom:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
@@ -346,7 +399,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
         </div>
         <div class="row2">
           <div><label class="f-lbl">Phone *</label><input class="f-inp" type="tel" id="c-phone" placeholder="+265 999 123 456"></div>
-          <div><label class="f-lbl">Email</label><input class="f-inp" type="email" id="c-email" placeholder="email@example.com" inputmode="email"></div>
+          <div><label class="f-lbl">Email Image</label><input class="f-inp" type="email" id="c-email" placeholder="email@example.com" inputmode="email"></div>
         </div>
         <div class="full">
           <label class="f-lbl">Occupation *</label>
@@ -419,9 +472,9 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
       <!-- QUOTE OUTPUT (initially hidden) -->
       <div id="quote-output" style="display:none">
         <div class="action-row">
-          <button class="btn-sm btn-wa" onclick="shareWA()" title="Saves quote as image — share via WhatsApp gallery">
+          <button class="btn-sm btn-wa" onclick="shareWA()">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.851L.057 23.857a.5.5 0 0 0 .603.641l6.258-1.641A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 0 1-5.015-1.376l-.36-.214-3.713.974.993-3.614-.234-.372A9.794 9.794 0 0 1 2.182 12c0-5.417 4.401-9.818 9.818-9.818 5.417 0 9.818 4.401 9.818 9.818 0 5.417-4.401 9.818-9.818 9.818z"/></svg>
-            WA Image
+            WhatsApp
           </button>
           <button class="btn-sm btn-email-btn" onclick="shareEmail()">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -453,16 +506,13 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
             <div class="cli-block" id="q-client"></div>
 
             <div class="q-sec">Policy summary</div>
-            <div class="q-metrics" id="q-metrics"></div>
-
-            <div class="q-sec" id="q-prem-sec" style="display:none">Premium breakdown</div>
-            <div class="prem-breakdown" id="q-prem-bd" style="display:none"></div>
-
-            <div class="mat-box" id="q-mat"></div>
+            <div class="opt-cards" id="q-opt-cards"></div>
+            <div class="q-sec" style="margin-top:10px">Premium breakdown</div>
+            <div class="bd-compare" id="q-bd-compare"></div>
 
             <div class="feat-box" id="q-features"></div>
 
-            <div class="disclaimer">Indicative quotation only. Subject to underwriting and medical requirements. Projected maturity value assumes 7% p.a. compound reversionary bonus — <strong>not guaranteed</strong>. Regulated by the Reserve Bank of Malawi. <strong>Full Terms and Conditions apply.</strong> Please contact your Vanguard Life agent or call <strong>3043</strong> for a copy of the full policy terms and conditions.</div>
+            <div class="disclaimer">Indicative quotation only. Subject to underwriting and medical requirements. Projected maturity value assumes 7% p.a. compound reversionary bonus — <strong>not guaranteed</strong>. Regulated by the Reserve Bank of Malawi. <strong>Full Terms and Conditions apply.</strong> Call <strong>3043</strong> for full policy terms.</div>
           </div>
 
           <div class="qfoot">
@@ -513,7 +563,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
       <div class="card">
         <div class="sec-lbl">App information</div>
         <div class="setting-row"><span class="setting-lbl">Version</span><span class="setting-val">1.0.0</span></div>
-        <div class="setting-row"><span class="setting-lbl">Product</span><span class="setting-val">Pure Savings Plan</span></div>
+        <div class="setting-row"><span class="setting-lbl">Product</span><span class="setting-val">Basic Pure Savings Plan (EPU)</span></div>
         <div class="setting-row"><span class="setting-lbl">Rates edition</span><span class="setting-val">2026 Rate Book</span></div>
         <div class="setting-row"><span class="setting-lbl">Bonus assumption</span><span class="setting-val">7% p.a. compound</span></div>
       </div>
@@ -566,10 +616,9 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
    To disable:      change PIN to 'DISABLED'
 ═══════════════════════════════════════════ */
 const AGENTS = {
-  'VLA Agent':    '1625'
-  /* ADD MORE AGENTS BELOW — copy the line above */
+  'VLA Agent': '1625'
+  /* ADD MORE AGENTS BELOW */
   /* 'Jane Banda':  '2001', */
-  /* 'John Phiri':  '3045', */
 };
 
 /* ═══════════════════════════════════════════
@@ -866,9 +915,7 @@ function switchTab(tab){
   });
   if(tab==='history')renderHistory();
   document.getElementById('app-body').scrollTop=0;
-  // Show generate button again
-  const gb=document.getElementById('gen-btn');
-  if(gb) gb.style.display='flex';
+  const gb=document.getElementById('gen-btn');if(gb)gb.style.display='flex';
 }
 
 /* ═══════════════════════════════════════════
@@ -1072,42 +1119,90 @@ function generateQuote(){
        </div>
      </div>`;
 
-  document.getElementById('q-metrics').innerHTML=
-    `<div class="qtile"><div class="qtile-lbl">Sum Assured</div><div class="qtile-val">${mk(SA)}</div></div>
-     <div class="qtile"><div class="qtile-lbl">${isMo?'Monthly':'Annual'} Premium</div><div class="qtile-val">${mk(totalP)}</div></div>
-     <div class="qtile"><div class="qtile-lbl">Policy Term</div><div class="qtile-val">${term} yrs</div></div>
-     <div class="qtile lt"><div class="qtile-lbl">Projected Maturity</div><div class="qtile-val">${mk(projM)}</div></div>`;
+  // ── Calculate both options always ──
+  const feeAmt = isMo ? FEE_M : FEE_A;
+  const baseRt = (isMo ? MR : AR)[anb][term];
+  const aUnits = SA / 10000;
+  const aBasicP = baseRt * aUnits;
+  const aTotalP = aBasicP + feeAmt;
+  // Option B DAB: use selected occ rate or default Class 1
+  const bDabR1k = (selectedOcc && selectedOcc.rate > 0) ? selectedOcc.rate : 1.50;
+  const bDabR10k = isMo ? bDabR1k*10 : bDabR1k*10*11.3744;
+  const bDabAmt = bDabR10k * aUnits;
+  const bTotalP = aBasicP + bDabAmt + feeAmt;
+  const bOccCls = (selectedOcc && selectedOcc.cls) ? selectedOcc.cls : '1';
 
-  // Premium breakdown section
-  const bdEl=document.getElementById('q-prem-bd');
-  const bdSec=document.getElementById('q-prem-sec');
-  const feeAmt=isMo?FEE_M:FEE_A;
-  let bdHTML=`<div class="prem-row">
-    <span class="prem-lbl">Pure Savings Plan premium</span>
-    <span class="prem-val">${mk(basicP)} / ${fl}</span>
-  </div>`;
-  if(dab&&dabP>0){
-    bdHTML+=`<div class="prem-row dab-row-style">
-      <span class="prem-lbl">Double Accident Benefit (DAB)</span>
-      <span class="prem-val">${mk(dabP)} / ${fl}</span>
+  // ── Policy Summary — Two Cards (Option A / Option B) ──
+  document.getElementById('q-opt-cards').innerHTML=`
+    <div class="opt-card">
+      <div class="opt-card-head head-a">
+        <div class="opt-card-badge">Option A</div>
+        <div class="opt-card-title">Savings Only</div>
+      </div>
+      <div class="opt-card-body">
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">Sum Assured</span>
+          <span class="opt-card-val">${mk(SA)}</span>
+        </div>
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">Policy Term</span>
+          <span class="opt-card-val">${term} years</span>
+        </div>
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">${isMo?'Monthly':'Annual'} Premium</span>
+          <span class="opt-card-val prem-val">${mk(aTotalP)}<span class="freq">/${isMo?'monthly':'annual'}</span></span>
+        </div>
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">Proj. Maturity</span>
+          <span class="opt-card-val mat-val">${mk(projM)}</span>
+        </div>
+      </div>
+    </div>
+    <div class="opt-card">
+      <div class="opt-card-head head-b">
+        <div class="opt-card-badge">Option B</div>
+        <div class="opt-card-title">Savings + DAB</div>
+      </div>
+      <div class="opt-card-body">
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">Sum Assured</span>
+          <span class="opt-card-val">${mk(SA)}</span>
+        </div>
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">DAB Cover</span>
+          <span class="opt-card-val">${mk(SA)}</span>
+        </div>
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">Policy Term</span>
+          <span class="opt-card-val">${term} years</span>
+        </div>
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">${isMo?'Monthly':'Annual'} Premium</span>
+          <span class="opt-card-val prem-val">${mk(bTotalP)}<span class="freq">/${isMo?'monthly':'annual'}</span></span>
+        </div>
+        <div class="opt-card-row">
+          <span class="opt-card-lbl">Proj. Maturity</span>
+          <span class="opt-card-val mat-val">${mk(projM)}</span>
+        </div>
+      </div>
     </div>`;
-  }
-  bdHTML+=`<div class="prem-row">
-    <span class="prem-lbl">Policy fee</span>
-    <span class="prem-val">${mk(feeAmt)} / ${fl}</span>
-  </div>
-  <div class="prem-row total-row">
-    <span class="prem-lbl">Total ${isMo?'monthly':'annual'} premium</span>
-    <span class="prem-val">${mk(totalP)}</span>
-  </div>`;
-  bdEl.innerHTML=bdHTML;
-  bdEl.style.display='block';
-  bdSec.style.display='block';
 
-  document.getElementById('q-mat').innerHTML=
-    `<div class="mat-lbl">PROJECTED MATURITY VALUE AT AGE ${matAge}</div>
-     <div class="mat-val">${mk(projM)}</div>
-     <div class="mat-sub">Sum assured ${mk(SA)} + bonuses at 7% p.a. compound (illustrative)</div>`;
+  // ── Side-by-Side Premium Breakdown ──
+  document.getElementById('q-bd-compare').innerHTML=`
+    <div class="bd-col">
+      <div class="bd-col-head a-head">Option A — Savings Only</div>
+      <div class="bd-line"><span class="bl-lbl">PSP premium</span><span class="bl-val">${mk(aBasicP)}</span></div>
+      <div class="bd-line"><span class="bl-lbl">DAB</span><span class="bl-nil">not included</span></div>
+      <div class="bd-line"><span class="bl-lbl">Policy fee</span><span class="bl-val">${mk(feeAmt)}</span></div>
+      <div class="bd-line"><span class="bl-lbl">Total /${isMo?'mo':'yr'}</span><span class="bl-val">${mk(aTotalP)}</span></div>
+    </div>
+    <div class="bd-col">
+      <div class="bd-col-head b-head">Option B — Savings + DAB</div>
+      <div class="bd-line"><span class="bl-lbl">PSP premium</span><span class="bl-val">${mk(aBasicP)}</span></div>
+      <div class="bd-line"><span class="bl-dab-lbl">DAB (Class ${bOccCls})</span><span class="bl-dab-val">${mk(bDabAmt)}</span></div>
+      <div class="bd-line"><span class="bl-lbl">Policy fee</span><span class="bl-val">${mk(feeAmt)}</span></div>
+      <div class="bd-line"><span class="bl-lbl">Total /${isMo?'mo':'yr'}</span><span class="bl-val">${mk(bTotalP)}</span></div>
+    </div>`;
 
   // Key features bullet summary
   const ck=`<div class="feat-dot"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`;
@@ -1117,7 +1212,7 @@ function generateQuote(){
      <div class="feat-item">${ck}<div class="feat-txt"><strong>Death benefit:</strong> <span>Years 1–2: 90% of premiums paid returned. After year 2: all premiums plus 4% compound interest p.a.</span></div></div>
      <div class="feat-item">${ck}<div class="feat-txt"><strong>With-profits:</strong> <span>Policy participates in annual reversionary bonus declarations — once declared, bonuses are permanent additions.</span></div></div>
      <div class="feat-item">${ck}<div class="feat-txt"><strong>Surrender & paid-up:</strong> <span>Available after 3 years premiums paid (2 years for terms ≤ 19 years). Paid-up policies continue sharing in profits.</span></div></div>
-     ${dab?`<div class="feat-item"><div class="feat-dot" style="background:var(--GL)"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#166534" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="feat-txt"><strong>Double Accident Benefit (DAB):</strong> <span>Additional ${mk(SA)} payable on accidental death or total permanent disability (Class ${selectedOcc?selectedOcc.cls:'—'}, MK ${dabR1k}/1,000 SA).</span></div></div>`:''}
+     ${dab?`<div class="feat-item"><div class="feat-dot" style="background:#D8C9B4"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2 2 4-4" stroke="#5E1411" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="feat-txt"><strong>Double Accident Benefit (DAB):</strong> <span>Additional ${mk(SA)} payable on accidental death or total permanent disability (Class ${selectedOcc?selectedOcc.cls:'—'}, MK ${dabR1k}/1,000 SA).</span></div></div>`:''}
      <div class="feat-item">${ck}<div class="feat-txt"><strong>Premium term:</strong> <span>5–35 years. Entry age 18–65. Maximum maturity age 75.</span></div></div>
      <div class="feat-item">${ck}<div class="feat-txt"><strong>Loan facility:</strong> <span>Available up to 95% of surrender value once policy has acquired surrender value.</span></div></div>`;
 
@@ -1127,9 +1222,7 @@ function generateQuote(){
   // Show output
   document.getElementById('quote-output').style.display='block';
   document.getElementById('quote-output').scrollIntoView({behavior:'smooth',block:'start'});
-  // Hide generate button once quote is shown
-  const gb=document.getElementById('gen-btn');
-  if(gb) gb.style.display='none';
+  const gb=document.getElementById('gen-btn');if(gb)gb.style.display='none';
 
   // Save locally & sync
   saveQuoteLocally(quoteData);
@@ -1158,82 +1251,18 @@ function syncToSheets(q){
   ss.className='sync-pill sync-pending';
   ss.innerHTML='<span class="sync-dot"></span><span>Saving to central database…</span>';
   ss.style.display='inline-flex';
-
-  // Build payload
-  const payload={
-    Timestamp: new Date().toISOString(),
-    Agent:     q.agent||'',
-    QuoteRef:  q.ref||'',
-    ClientName:q.clientName||'',
-    ClientEmail:q.clientEmail||'',
-    ClientPhone:q.clientPhone||'',
-    Gender:    q.gender||'',
-    Occupation:q.occupation||'',
-    OccClass:  q.occClass||'',
-    DOB:       q.dob||'',
-    ANB:       String(q.anb||''),
-    QuoteDate: q.doq||'',
-    Term:      String(q.term||''),
-    Frequency: q.freq||'',
-    SumAssured:       String(Math.round(q.SA||0)),
-    BasicPremium:     String(Math.round(q.basicP||0)),
-    DABPremium:       String(Math.round(q.dabP||0)),
-    PolicyFee:        String(Math.round(q.policyFee||0)),
-    TotalPremium:     String(Math.round(q.totalP||0)),
-    ProjectedMaturity:String(Math.round(q.projM||0)),
-    DABIncluded: q.dabIncluded?'Yes':'No',
-    Mode:        q.mode==='sa'?'SA to Premium':'Premium to SA'
-  };
-
-  // Use hidden iframe + form POST — bypasses CORS completely
-  // Google Apps Script receives this as e.parameter in doPost
-  try {
-    // Create hidden iframe to receive response silently
-    let iframe = document.getElementById('sync-iframe');
-    if(!iframe){
-      iframe = document.createElement('iframe');
-      iframe.id = 'sync-iframe';
-      iframe.name = 'sync-iframe';
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-    }
-
-    // Create hidden form targeting the iframe
-    let form = document.getElementById('sync-form');
-    if(form) form.remove();
-    form = document.createElement('form');
-    form.id = 'sync-form';
-    form.method = 'POST';
-    form.action = url;
-    form.target = 'sync-iframe';
-    form.style.display = 'none';
-
-    // Add all fields as hidden inputs
-    Object.entries(payload).forEach(([k,v])=>{
-      const inp = document.createElement('input');
-      inp.type = 'hidden';
-      inp.name = k;
-      inp.value = v;
-      form.appendChild(inp);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-
-    // Mark as saved after 2 seconds (form submitted, response in hidden iframe)
-    setTimeout(()=>{
-      ss.className='sync-pill sync-ok';
-      ss.innerHTML='<span class="sync-dot"></span><span>✓ Saved to central database</span>';
-      form.remove();
-    }, 2000);
-
-  } catch(err){
-    console.error('Sync error:', err);
-    ss.className='sync-pill sync-fail';
-    ss.innerHTML='<span class="sync-dot"></span><span>⚠️ Sync failed — saved locally</span>';
-  }
+  try{
+    let iframe=document.getElementById('sync-iframe');
+    if(!iframe){iframe=document.createElement('iframe');iframe.id='sync-iframe';iframe.name='sync-iframe';iframe.style.display='none';document.body.appendChild(iframe);}
+    let form=document.getElementById('sync-form');
+    if(form)form.remove();
+    form=document.createElement('form');form.id='sync-form';form.method='POST';form.action=url;form.target='sync-iframe';form.style.display='none';
+    const fields={Timestamp:new Date().toISOString(),Agent:q.agent||'',QuoteRef:q.ref||'',ClientName:q.clientName||'',ClientEmail:q.clientEmail||'',ClientPhone:q.clientPhone||'',Gender:q.gender||'',Occupation:q.occupation||'',OccClass:q.occClass||'',DOB:q.dob||'',ANB:String(q.anb||''),QuoteDate:q.doq||'',Term:String(q.term||''),Frequency:q.freq||'',SumAssured:String(Math.round(q.SA||0)),BasicPremium:String(Math.round(q.basicP||0)),DABPremium:String(Math.round(q.dabP||0)),PolicyFee:String(Math.round(q.policyFee||0)),TotalPremium:String(Math.round(q.totalP||0)),ProjectedMaturity:String(Math.round(q.projM||0)),DABIncluded:q.dabIncluded?'Yes':'No',Mode:q.mode==='sa'?'SA to Premium':'Premium to SA'};
+    Object.entries(fields).forEach(([k,v])=>{const i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;form.appendChild(i);});
+    document.body.appendChild(form);form.submit();
+    setTimeout(()=>{ss.className='sync-pill sync-ok';ss.innerHTML='<span class="sync-dot"></span><span>✓ Saved to central database</span>';form.remove();},2000);
+  }catch(err){ss.className='sync-pill sync-fail';ss.innerHTML='<span class="sync-dot"></span><span>⚠️ Saved locally only</span>';}
 }
-
 /* ═══════════════════════════════════════════
    SETTINGS
 ═══════════════════════════════════════════ */
@@ -1281,22 +1310,15 @@ function renderHistory(){
 /* ═══════════════════════════════════════════
    SHARE
 ═══════════════════════════════════════════ */
-/* ── IMAGE GENERATION ─────────────────────── */
 function showSavingOverlay(msg){
   let ov=document.getElementById('img-overlay');
-  if(!ov){
-    ov=document.createElement('div');
-    ov.id='img-overlay';
-    ov.className='img-saving-overlay';
-    document.body.appendChild(ov);
-  }
-  ov.innerHTML=`<div class="img-saving-spinner"></div><div class="img-saving-text">${msg}</div>`;
+  if(!ov){ov=document.createElement('div');ov.id='img-overlay';
+    ov.style.cssText='position:fixed;inset:0;background:rgba(94,17,17,.85);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px';
+    document.body.appendChild(ov);}
+  ov.innerHTML='<div style="width:44px;height:44px;border:4px solid rgba(216,201,180,.3);border-top-color:#D8C9B4;border-radius:50%;animation:spin .8s linear infinite"></div><div style="color:#D8C9B4;font-size:15px;font-weight:500">'+msg+'</div>';
   ov.style.display='flex';
 }
-function hideSavingOverlay(){
-  const ov=document.getElementById('img-overlay');
-  if(ov)ov.style.display='none';
-}
+function hideSavingOverlay(){const ov=document.getElementById('img-overlay');if(ov)ov.style.display='none';}
 
 function captureQuoteImage(callback){
   const el=document.getElementById('q-doc');
@@ -1304,58 +1326,35 @@ function captureQuoteImage(callback){
   showSavingOverlay('Generating quote image…');
   setTimeout(()=>{
     const w=el.scrollWidth||el.offsetWidth||360;
-    html2canvas(el,{
-      scale:2.5,
-      useCORS:true,
-      allowTaint:true,
-      backgroundColor:'#ffffff',
-      logging:false,
-      width:w,
-      scrollX:0,
-      scrollY:0,
-      windowWidth:Math.max(w+40,400)
-    }).then(canvas=>{
-      hideSavingOverlay();
-      callback(canvas);
-    }).catch(err=>{
-      hideSavingOverlay();
-      showToast('Image error — try Print/PDF instead');
-      console.error('html2canvas:',err);
-    });
+    html2canvas(el,{scale:2.5,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',logging:false,width:w,scrollX:0,scrollY:0,windowWidth:Math.max(w+40,400)})
+    .then(canvas=>{hideSavingOverlay();callback(canvas);})
+    .catch(err=>{hideSavingOverlay();showToast('Image error — try Print/PDF');console.error(err);});
   },300);
 }
 
 function shareWA(){
   if(!quoteData){showToast('Generate a quote first');return;}
   captureQuoteImage(canvas=>{
-    // Download image to gallery
     const link=document.createElement('a');
     link.download='VLA-Quote-'+quoteData.ref+'.png';
-    link.href=canvas.toDataURL('image/png');
-    link.click();
-    // Show instruction
-    setTimeout(()=>{
-      showToast('✓ Quote image saved to Downloads!\nOpen WhatsApp → + → Gallery → share',5000);
-    },800);
+    link.href=canvas.toDataURL('image/png');link.click();
+    setTimeout(()=>showToast('✓ Image saved! Open WhatsApp → attach from gallery',4500),800);
   });
 }
-
 function shareEmail(){
   if(!quoteData){showToast('Generate a quote first');return;}
   captureQuoteImage(canvas=>{
-    // Download image
     const link=document.createElement('a');
     link.download='VLA-Quote-'+quoteData.ref+'.png';
-    link.href=canvas.toDataURL('image/png');
-    link.click();
-    // Also open email with instructions
+    link.href=canvas.toDataURL('image/png');link.click();
+    const q=quoteData;
+    const fee=q.isMo?600:7128.74;
+    const aBasic=q.basicP;const aTotal=Math.round(aBasic+fee);
     setTimeout(()=>{
-      const sub=encodeURIComponent('Vanguard Life — Pure Savings Plan Quote for '+quoteData.clientName);
-      const body=encodeURIComponent(
-        'Dear '+quoteData.clientName+',\n\nPlease find attached your Pure Savings Plan quote from Vanguard Life Assurance.\n\nQuote Reference: '+quoteData.ref+'\nSum Assured: '+mk(quoteData.SA)+'\n'+(quoteData.isMo?'Monthly':'Annual')+' Premium: '+mk(quoteData.totalP)+'\nProjected Maturity Value: '+mk(quoteData.projM)+'\n\nThis is an indicative quotation only. Full Terms and Conditions apply.\n\nFor more information please call 3043 or visit vanguardlifemw.com\n\nKind regards,\n'+quoteData.agent+'\nVanguard Life Assurance'
-      );
-      window.open('mailto:'+encodeURIComponent(quoteData.clientEmail||'')+'?subject='+sub+'&body='+body,'_blank');
-      showToast('✓ Quote image saved to Downloads!\nAttach to your email',4000);
+      const sub=encodeURIComponent('Vanguard Life — Pure Savings Plan Quote for '+q.clientName);
+      const body=encodeURIComponent('Dear '+q.clientName+',\n\nPlease find attached your Pure Savings Plan quote.\n\nRef: '+q.ref+'\nSum Assured: '+mk(q.SA)+'\n\nOption A (Savings Only): '+mk(aTotal)+'/'+( q.isMo?'monthly':'annual')+'\nOption B (Savings + DAB): '+mk(q.totalP)+'/'+( q.isMo?'monthly':'annual')+'\nProjected Maturity: '+mk(q.projM)+'\n\nFull Terms and Conditions apply.\nCall 3043 or visit vanguardlifemw.com\n\nKind regards,\n'+q.agent+'\nVanguard Life Assurance');
+      window.open('mailto:'+encodeURIComponent(q.clientEmail||'')+'?subject='+sub+'&body='+body,'_blank');
+      showToast('✓ Image saved! Attach to your email',4000);
     },600);
   });
 }
@@ -1379,9 +1378,7 @@ function resetQuote(){
   document.getElementById('c-doq').value=`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
   clrErr();setMode('sa');
   document.getElementById('app-body').scrollTop=0;
-  // Show generate button again
-  const gb=document.getElementById('gen-btn');
-  if(gb) gb.style.display='flex';
+  const gb=document.getElementById('gen-btn');if(gb)gb.style.display='flex';
 }
 
 /* ═══════════════════════════════════════════

@@ -1159,49 +1159,79 @@ function syncToSheets(q){
   ss.innerHTML='<span class="sync-dot"></span><span>Saving to central database…</span>';
   ss.style.display='inline-flex';
 
-  // Build GET params — append to URL, use image ping to bypass CORS
-  const params=new URLSearchParams({
-    Timestamp:new Date().toISOString(),
-    Agent:q.agent||'',
-    QuoteRef:q.ref||'',
+  // Build payload
+  const payload={
+    Timestamp: new Date().toISOString(),
+    Agent:     q.agent||'',
+    QuoteRef:  q.ref||'',
     ClientName:q.clientName||'',
     ClientEmail:q.clientEmail||'',
     ClientPhone:q.clientPhone||'',
-    Gender:q.gender||'',
+    Gender:    q.gender||'',
     Occupation:q.occupation||'',
-    OccClass:q.occClass||'',
-    DOB:q.dob||'',
-    ANB:String(q.anb||''),
-    QuoteDate:q.doq||'',
-    Term:String(q.term||''),
-    Frequency:q.freq||'',
-    SumAssured:String(Math.round(q.SA||0)),
-    BasicPremium:String(Math.round(q.basicP||0)),
-    DABPremium:String(Math.round(q.dabP||0)),
-    PolicyFee:String(Math.round(q.policyFee||0)),
-    TotalPremium:String(Math.round(q.totalP||0)),
+    OccClass:  q.occClass||'',
+    DOB:       q.dob||'',
+    ANB:       String(q.anb||''),
+    QuoteDate: q.doq||'',
+    Term:      String(q.term||''),
+    Frequency: q.freq||'',
+    SumAssured:       String(Math.round(q.SA||0)),
+    BasicPremium:     String(Math.round(q.basicP||0)),
+    DABPremium:       String(Math.round(q.dabP||0)),
+    PolicyFee:        String(Math.round(q.policyFee||0)),
+    TotalPremium:     String(Math.round(q.totalP||0)),
     ProjectedMaturity:String(Math.round(q.projM||0)),
-    DABIncluded:q.dabIncluded?'Yes':'No',
-    Mode:q.mode==='sa'?'SA to Premium':'Premium to SA'
-  });
+    DABIncluded: q.dabIncluded?'Yes':'No',
+    Mode:        q.mode==='sa'?'SA to Premium':'Premium to SA'
+  };
 
-  const fullUrl = url + '?' + params.toString();
+  // Use hidden iframe + form POST — bypasses CORS completely
+  // Google Apps Script receives this as e.parameter in doPost
+  try {
+    // Create hidden iframe to receive response silently
+    let iframe = document.getElementById('sync-iframe');
+    if(!iframe){
+      iframe = document.createElement('iframe');
+      iframe.id = 'sync-iframe';
+      iframe.name = 'sync-iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
 
-  // Method 1: fetch no-cors (silent success)
-  fetch(fullUrl, {method:'GET', mode:'no-cors'})
-    .then(()=>{
+    // Create hidden form targeting the iframe
+    let form = document.getElementById('sync-form');
+    if(form) form.remove();
+    form = document.createElement('form');
+    form.id = 'sync-form';
+    form.method = 'POST';
+    form.action = url;
+    form.target = 'sync-iframe';
+    form.style.display = 'none';
+
+    // Add all fields as hidden inputs
+    Object.entries(payload).forEach(([k,v])=>{
+      const inp = document.createElement('input');
+      inp.type = 'hidden';
+      inp.name = k;
+      inp.value = v;
+      form.appendChild(inp);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+
+    // Mark as saved after 2 seconds (form submitted, response in hidden iframe)
+    setTimeout(()=>{
       ss.className='sync-pill sync-ok';
       ss.innerHTML='<span class="sync-dot"></span><span>✓ Saved to central database</span>';
-    })
-    .catch(()=>{
-      // Method 2: image ping fallback — always works, bypasses CORS
-      const img = new Image();
-      img.onload = img.onerror = function(){
-        ss.className='sync-pill sync-ok';
-        ss.innerHTML='<span class="sync-dot"></span><span>✓ Saved to central database</span>';
-      };
-      img.src = fullUrl;
-    });
+      form.remove();
+    }, 2000);
+
+  } catch(err){
+    console.error('Sync error:', err);
+    ss.className='sync-pill sync-fail';
+    ss.innerHTML='<span class="sync-dot"></span><span>⚠️ Sync failed — saved locally</span>';
+  }
 }
 
 /* ═══════════════════════════════════════════

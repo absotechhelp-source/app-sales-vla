@@ -2530,12 +2530,40 @@ function hideSavingOverlay(){const ov=document.getElementById('img-overlay');if(
 function captureQuoteImageFromEl(el, callback){
   if(!el){showToast('No quote to capture');return;}
   showSavingOverlay('Generating quotation image…');
+
+  // Force desktop width so numbers never get cut off on phone screens
+  const RENDER_W = 640;
+  const origWidth    = el.style.width;
+  const origMaxWidth = el.style.maxWidth;
+  el.style.width    = RENDER_W + 'px';
+  el.style.maxWidth = RENDER_W + 'px';
+
   setTimeout(()=>{
-    const w=el.scrollWidth||el.offsetWidth||360;
-    html2canvas(el,{scale:2.5,useCORS:true,allowTaint:true,backgroundColor:'#ffffff',logging:false,width:w,scrollX:0,scrollY:0,windowWidth:Math.max(w+40,400)})
-    .then(canvas=>{hideSavingOverlay();callback(canvas);})
-    .catch(err=>{hideSavingOverlay();showToast('Image error — try Print/PDF');console.error(err);});
-  },300);
+    html2canvas(el,{
+      scale:2.5,
+      useCORS:true,
+      allowTaint:true,
+      backgroundColor:'#ffffff',
+      logging:false,
+      width:RENDER_W,
+      windowWidth:RENDER_W + 40,
+      scrollX:0,
+      scrollY:0
+    })
+    .then(canvas=>{
+      // Restore original width
+      el.style.width    = origWidth;
+      el.style.maxWidth = origMaxWidth;
+      hideSavingOverlay();
+      callback(canvas);
+    })
+    .catch(err=>{
+      el.style.width    = origWidth;
+      el.style.maxWidth = origMaxWidth;
+      hideSavingOverlay();
+      showToast('Image error — try Print/PDF');
+    });
+  }, 300);
 }
 function captureQuoteImage(callback){captureQuoteImageFromEl(document.getElementById('q-doc'),callback);}
 

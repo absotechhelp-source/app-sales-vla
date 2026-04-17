@@ -1250,6 +1250,16 @@ function showToast(msg,dur=2500){
 ═══════════════════════════════════════════ */
 function generateQuote(){
   clrErr();let ok=true;
+  // Read name + address fields FIRST before any validation
+  const fname=(document.getElementById('c-fname')||{value:''}).value.trim();
+  const mname=(document.getElementById('c-mname')||{value:''}).value.trim();
+  const lname=(document.getElementById('c-lname')||{value:''}).value.trim();
+  const name=[fname,mname,lname].filter(Boolean).join(' ');
+  const area=(document.getElementById('c-area')||{value:''}).value.trim();
+  const city=(document.getElementById('c-city')||{value:''}).value.trim();
+  const district=(document.getElementById('c-district')||{value:''}).value.trim();
+  const address=[area,city,district].filter(Boolean).join(', ');
+  // Now validate
   if(!fname){showToast('First name required');ok=false;}
   if(!lname){showToast('Last name required');ok=false;}
   if(!document.getElementById('c-gender').value){showToast('Gender required');ok=false;}
@@ -1299,20 +1309,10 @@ function generateQuote(){
   const ref=genRef();
   const doq=document.getElementById('c-doq').value;
   const dob=document.getElementById('c-dob').value;
-  // Assemble name from split fields
-  const fname=(document.getElementById('c-fname')||{value:''}).value.trim();
-  const mname=(document.getElementById('c-mname')||{value:''}).value.trim();
-  const lname=(document.getElementById('c-lname')||{value:''}).value.trim();
-  const name=[fname,mname,lname].filter(Boolean).join(' ');
   const phone=document.getElementById('c-phone').value.trim();
   const email=document.getElementById('c-email').value.trim();
   const gender=document.getElementById('c-gender').value;
   const occ=document.getElementById('c-occ').value.trim();
-  // Address fields (optional)
-  const area=(document.getElementById('c-area')||{value:''}).value.trim();
-  const city=(document.getElementById('c-city')||{value:''}).value.trim();
-  const district=(document.getElementById('c-district')||{value:''}).value.trim();
-  const address=[area,city,district].filter(Boolean).join(', ');
   quoteData={
     ref,agent:currentAgent,
     clientName:name,clientFirstName:fname,clientMiddleName:mname,clientLastName:lname,

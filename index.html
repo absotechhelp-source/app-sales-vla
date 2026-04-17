@@ -344,8 +344,16 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 
       <div class="card">
         <div class="sec-lbl">Client details</div>
+        <!-- Name: First / Middle / Last -->
         <div class="row2">
-          <div><label class="f-lbl">Full name *</label><input class="f-inp" type="text" id="c-name" placeholder="e.g. James Phiri" autocomplete="off"></div>
+          <div><label class="f-lbl">First name *</label><input class="f-inp" type="text" id="c-fname" placeholder="e.g. James" autocomplete="given-name" oninput="assembleName()"></div>
+          <div><label class="f-lbl">Last name *</label><input class="f-inp" type="text" id="c-lname" placeholder="e.g. Phiri" autocomplete="family-name" oninput="assembleName()"></div>
+        </div>
+        <div class="full">
+          <label class="f-lbl">Middle name <span style="font-weight:400;color:var(--BD)">(optional)</span></label>
+          <input class="f-inp" type="text" id="c-mname" placeholder="e.g. Chisomo" autocomplete="additional-name" oninput="assembleName()">
+        </div>
+        <div class="row2">
           <div><label class="f-lbl">Gender *</label>
             <select class="f-inp" id="c-gender">
               <option value="">Select</option>
@@ -353,11 +361,41 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
               <option value="Female">Female</option>
             </select>
           </div>
-        </div>
-        <div class="row2">
           <div><label class="f-lbl">Phone *</label><input class="f-inp" type="tel" id="c-phone" placeholder="+265 999 123 456"></div>
-          <div><label class="f-lbl">Email</label><input class="f-inp" type="email" id="c-email" placeholder="email@example.com" inputmode="email"></div>
         </div>
+        <div class="full">
+          <label class="f-lbl">Email <span style="font-weight:400;color:var(--BD)">(optional)</span></label>
+          <input class="f-inp" type="email" id="c-email" placeholder="email@example.com" inputmode="email">
+        </div>
+        <!-- Address: Area / City / District -->
+        <div class="sec-lbl" style="margin-top:14px">Address <span style="font-weight:400;color:var(--BD);text-transform:none;letter-spacing:0;font-size:10px">(optional — appears on quote if filled)</span></div>
+        <div class="row2">
+          <div><label class="f-lbl">Area / Village</label><input class="f-inp" type="text" id="c-area" placeholder="e.g. Sunnyside" autocomplete="off"></div>
+          <div><label class="f-lbl">City / Town</label><input class="f-inp" type="text" id="c-city" placeholder="e.g. Blantyre" autocomplete="off"></div>
+        </div>
+        <div class="full">
+          <label class="f-lbl">District</label>
+          <select class="f-inp" id="c-district">
+            <option value="">Select district</option>
+            <optgroup label="Southern Region">
+              <option>Blantyre</option><option>Chiradzulu</option><option>Chikwawa</option>
+              <option>Machinga</option><option>Mangochi</option><option>Mulanje</option>
+              <option>Mwanza</option><option>Nsanje</option><option>Phalombe</option>
+              <option>Thyolo</option><option>Zomba</option>
+            </optgroup>
+            <optgroup label="Central Region">
+              <option>Dedza</option><option>Dowa</option><option>Kasungu</option>
+              <option>Lilongwe</option><option>Mchinji</option><option>Nkhotakota</option>
+              <option>Ntcheu</option><option>Ntchisi</option><option>Salima</option>
+            </optgroup>
+            <optgroup label="Northern Region">
+              <option>Chitipa</option><option>Karonga</option><option>Likoma</option>
+              <option>Mzimba</option><option>Nkhata Bay</option><option>Rumphi</option>
+            </optgroup>
+          </select>
+        </div>
+        <!-- Occupation -->
+        <div class="sec-lbl" style="margin-top:14px">Occupation</div>
         <div class="full">
           <label class="f-lbl">Occupation *</label>
           <input class="f-inp" type="text" id="c-occ" placeholder="Start typing occupation..." autocomplete="off" oninput="filterOcc(this.value)">
@@ -370,8 +408,16 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
       <div class="card">
         <div class="sec-lbl">Age calculation</div>
         <div class="row2">
-          <div><label class="f-lbl">Date of birth *</label><input class="f-inp" type="date" id="c-dob" onchange="calcANB()"></div>
-          <div><label class="f-lbl">Date of quote *</label><input class="f-inp" type="date" id="c-doq" onchange="calcANB()"></div>
+          <div>
+            <label class="f-lbl">Date of birth *</label>
+            <input class="f-inp" type="date" id="c-dob" onchange="calcANB()">
+            <div id="dob-err" class="err"></div>
+          </div>
+          <div>
+            <label class="f-lbl">Date of quote *</label>
+            <input class="f-inp" type="date" id="c-doq" onchange="calcANB()">
+            <div id="doq-err" class="err"></div>
+          </div>
         </div>
         <div class="anb-pill" id="anb-pill"></div>
         <div id="age-err" class="err"></div>
@@ -1094,17 +1140,71 @@ function updatePremLabel(){
   document.getElementById('prem-lbl').textContent=document.getElementById('p-freq').value==='monthly'?'Monthly premium (MK) *':'Annual premium (MK) *';
 }
 function calcANB(){
-  const d1=document.getElementById('c-dob').value,d2=document.getElementById('c-doq').value;
+  const d1=document.getElementById('c-dob').value;
+  const d2=document.getElementById('c-doq').value;
   const pill=document.getElementById('anb-pill');
-  if(!d1||!d2){pill.style.display='none';anb=null;return;}
-  const dob=new Date(d1),doq=new Date(d2);
-  let age=doq.getFullYear()-dob.getFullYear();
-  const had=doq.getMonth()>dob.getMonth()||(doq.getMonth()===dob.getMonth()&&doq.getDate()>=dob.getDate());
-  if(!had)age--;
-  anb=age+1;
-  pill.style.display='block';
-  if(anb<18||anb>65){pill.className='anb-pill anb-err';pill.textContent=`ANB: ${anb} — outside eligible range (18–65)`;}
-  else{pill.className='anb-pill anb-ok';pill.textContent=`✓ Age at Next Birthday (ANB): ${anb}`;}
+  const dobErr=document.getElementById('dob-err');
+  const doqErr=document.getElementById('doq-err');
+
+  // Clear previous errors
+  if(dobErr)dobErr.style.display='none';
+  if(doqErr)doqErr.style.display='none';
+  pill.style.display='none';
+  anb=null;
+
+  const today=new Date();today.setHours(0,0,0,0);
+
+  // Validate DOB if entered
+  if(d1){
+    const dob=new Date(d1);
+    const ageYears=(today-dob)/(365.25*24*3600*1000);
+    if(dob>today){
+      if(dobErr){dobErr.textContent='Date of birth cannot be in the future.';dobErr.style.display='block';}
+      return;
+    }
+    if(ageYears>100){
+      if(dobErr){dobErr.textContent='Please check date of birth — age exceeds 100 years.';dobErr.style.display='block';}
+      return;
+    }
+  }
+
+  // Validate DOQ if entered
+  if(d2){
+    const doq=new Date(d2);
+    const daysFromToday=(doq-today)/(24*3600*1000);
+    if(daysFromToday>30){
+      if(doqErr){doqErr.textContent='Date of quote cannot be more than 30 days in the future.';doqErr.style.display='block';}
+      return;
+    }
+    if(daysFromToday<-365){
+      if(doqErr){doqErr.textContent='Date of quote cannot be more than 1 year in the past.';doqErr.style.display='block';}
+      return;
+    }
+  }
+
+  // Validate DOQ is not before DOB
+  if(d1&&d2){
+    const dob=new Date(d1),doq=new Date(d2);
+    if(doq<dob){
+      if(doqErr){doqErr.textContent='Date of quote cannot be before date of birth.';doqErr.style.display='block';}
+      return;
+    }
+
+    // Calculate ANB
+    let age=doq.getFullYear()-dob.getFullYear();
+    const hadBirthday=doq.getMonth()>dob.getMonth()||
+      (doq.getMonth()===dob.getMonth()&&doq.getDate()>=dob.getDate());
+    if(!hadBirthday)age--;
+    anb=age+1;
+    pill.style.display='block';
+    if(anb<18||anb>65){
+      pill.className='anb-pill anb-err';
+      pill.textContent=`ANB: ${anb} — outside eligible range (18–65)`;
+    } else {
+      pill.className='anb-pill anb-ok';
+      pill.textContent=`✓ Age at Next Birthday (ANB): ${anb}`;
+    }
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -1112,7 +1212,31 @@ function calcANB(){
 ═══════════════════════════════════════════ */
 function mk(n){return 'MK '+Math.round(n).toLocaleString('en');}
 function fmtDate(s){return new Date(s).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});}
-function initials(n){return n.trim().split(/\s+/).map(w=>w[0]).join('').toUpperCase().slice(0,2)||'VL';}
+function initials(n){
+  const parts=n.trim().split(/\s+/).filter(Boolean);
+  if(parts.length>=2) return (parts[0][0]+(parts[parts.length-1][0])).toUpperCase();
+  return (parts[0]||'VL').slice(0,2).toUpperCase();
+}
+function assembleName(){
+  const f=(document.getElementById('c-fname').value||'').trim();
+  const m=(document.getElementById('c-mname').value||'').trim();
+  const l=(document.getElementById('c-lname').value||'').trim();
+  const full=[f,m,l].filter(Boolean).join(' ');
+  // Write to legacy c-name hidden field for compatibility
+  let hidden=document.getElementById('c-name');
+  if(!hidden){
+    hidden=document.createElement('input');
+    hidden.type='hidden';hidden.id='c-name';
+    document.body.appendChild(hidden);
+  }
+  hidden.value=full;
+  return full;
+}
+function getFullName(){
+  const existing=document.getElementById('c-fname');
+  if(existing) return assembleName();
+  return (document.getElementById('c-name')||{value:''}).value.trim();
+}
 function genRef(){return 'PSP-'+Date.now().toString(36).toUpperCase();}
 function clrErr(){document.querySelectorAll('.err').forEach(e=>e.style.display='none');}
 function showToast(msg,dur=2500){
@@ -1126,7 +1250,8 @@ function showToast(msg,dur=2500){
 ═══════════════════════════════════════════ */
 function generateQuote(){
   clrErr();let ok=true;
-  if(!document.getElementById('c-name').value.trim()){showToast('Client name required');ok=false;}
+  if(!fname){showToast('First name required');ok=false;}
+  if(!lname){showToast('Last name required');ok=false;}
   if(!document.getElementById('c-gender').value){showToast('Gender required');ok=false;}
   if(!document.getElementById('c-phone').value.trim()){showToast('Phone required');ok=false;}
   if(!selectedOcc){document.getElementById('c-occ-err').style.display='block';ok=false;}
@@ -1174,14 +1299,25 @@ function generateQuote(){
   const ref=genRef();
   const doq=document.getElementById('c-doq').value;
   const dob=document.getElementById('c-dob').value;
-  const name=document.getElementById('c-name').value.trim();
+  // Assemble name from split fields
+  const fname=(document.getElementById('c-fname')||{value:''}).value.trim();
+  const mname=(document.getElementById('c-mname')||{value:''}).value.trim();
+  const lname=(document.getElementById('c-lname')||{value:''}).value.trim();
+  const name=[fname,mname,lname].filter(Boolean).join(' ');
   const phone=document.getElementById('c-phone').value.trim();
   const email=document.getElementById('c-email').value.trim();
   const gender=document.getElementById('c-gender').value;
   const occ=document.getElementById('c-occ').value.trim();
+  // Address fields (optional)
+  const area=(document.getElementById('c-area')||{value:''}).value.trim();
+  const city=(document.getElementById('c-city')||{value:''}).value.trim();
+  const district=(document.getElementById('c-district')||{value:''}).value.trim();
+  const address=[area,city,district].filter(Boolean).join(', ');
   quoteData={
     ref,agent:currentAgent,
-    clientName:name,clientEmail:email,clientPhone:phone,
+    clientName:name,clientFirstName:fname,clientMiddleName:mname,clientLastName:lname,
+    clientEmail:email,clientPhone:phone,
+    clientArea:area,clientCity:city,clientDistrict:district,clientAddress:address,
     gender,occupation:occ,occClass:selectedOcc?selectedOcc.cls:'N/A',
     dob,anb,doq,term,freq,SA,basicP,dabP,
     policyFee:fee,totalP,projM,dabIncluded:dab,dabR1k,
@@ -1218,12 +1354,14 @@ function renderQuoteDoc(q, docId, isModal){
   if(dateSub) dateSub.textContent = fmtDate(doq);
 
   const clientEl = document.getElementById(isModal ? 'hm-q-client' : 'q-client');
+  const addrLine = (q.clientAddress||'').trim();
   if(clientEl) clientEl.innerHTML=
     `<div class="cli-av">${initials(clientName)}</div>
      <div>
        <div class="cli-name">${clientName} &nbsp;<span style="font-size:11px;font-weight:400;color:var(--T2)">(${gender})</span></div>
        <div class="cli-sub">
          📞 ${clientPhone}${clientEmail?' &nbsp;|&nbsp; ✉️ '+clientEmail:''}<br>
+         ${addrLine?'📍 '+addrLine+'<br>':''}
          💼 ${occupation}${occClass&&occClass!='N/A'?' · Class '+occClass:''}
        </div>
      </div>`;
@@ -1324,7 +1462,13 @@ async function syncToSheets(q){
     TotalPremium:String(Math.round(q.totalP||0)),
     ProjectedMaturity:String(Math.round(q.projM||0)),
     DABIncluded:q.dabIncluded?'Yes':'No',
-    Mode:q.mode==='sa'?'SA to Premium':'Premium to SA'
+    Mode:q.mode==='sa'?'SA to Premium':'Premium to SA',
+    FirstName:q.clientFirstName||'',
+    MiddleName:q.clientMiddleName||'',
+    LastName:q.clientLastName||'',
+    Area:q.clientArea||'',
+    City:q.clientCity||'',
+    District:q.clientDistrict||''
   };
   try{
     // Use no-cors + no Content-Type header = "simple request" → no CORS preflight
@@ -1789,9 +1933,14 @@ function resetQuote(){
   // Clear all data state
   quoteData=null;selectedOcc=null;anb=null;
   // Clear all form fields
-  ['c-name','c-phone','c-email','c-occ','p-sa','p-prem'].forEach(id=>{
+  ['c-fname','c-mname','c-lname','c-name',
+   'c-phone','c-email','c-occ',
+   'c-area','c-city',
+   'p-sa','p-prem'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.value='';
   });
+  const distEl=document.getElementById('c-district');
+  if(distEl)distEl.value='';
   document.getElementById('c-gender').value='';
   document.getElementById('c-dob').value='';
   document.getElementById('p-term').value='';
@@ -1800,7 +1949,7 @@ function resetQuote(){
   // Hide all dynamic UI
   ['dab-occ-info','occ-info','occ-dropdown','anb-pill',
    'quote-output','sync-status','age-err','sa-err','prem-err',
-   'term-err','c-occ-err'].forEach(id=>{
+   'term-err','c-occ-err','dob-err','doq-err'].forEach(id=>{
     const el=document.getElementById(id);
     if(el)el.style.display='none';
   });

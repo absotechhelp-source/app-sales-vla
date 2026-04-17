@@ -98,7 +98,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .err{color:#991b1b;font-size:12px;margin-top:4px;display:none}
 
 /* ── QUOTE DOCUMENT ── */
-.qdoc{background:var(--W);border:1px solid var(--BD);border-radius:var(--RC);overflow:hidden;box-shadow:0 4px 16px var(--SH);margin-bottom:14px;max-width:680px;margin-left:auto;margin-right:auto}
+.qdoc{background:var(--W);border:1px solid var(--BD);border-radius:var(--RC);overflow:hidden;box-shadow:0 4px 16px var(--SH);margin-bottom:14px;max-width:680px;margin-left:auto;margin-right:auto;width:100%;box-sizing:border-box}
 
 /* ── LETTERHEAD — official VLA style ── */
 .q-letterhead{background:var(--W);padding:0;border-bottom:2px solid var(--CR)}
@@ -256,7 +256,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .opt-card-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #f2e9ea;gap:10px}
 .opt-card-row:last-child{border-bottom:none}
 .opt-card-lbl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0;min-width:120px}
-.opt-card-val{font-size:16px;font-weight:800;color:#641414;text-align:right;white-space:nowrap}
+.opt-card-val{font-size:16px;font-weight:800;color:#641414;text-align:right;white-space:nowrap;min-width:0;flex-shrink:1}
 .opt-card-val.prem-val{color:#641414;font-size:16px;font-weight:800}
 .opt-card-val.mat-val{color:#641414}
 .opt-card-val .freq{display:none}
@@ -377,33 +377,43 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 
 /* ── RESPONSIVE: Phone screens ── */
 @media screen and (max-width: 480px){
-  .app-body{padding:8px 8px 80px}
-  .qbody{padding:6px 10px}
-  .q-lh-top{padding:6px 10px}
-  .q-title-band{padding:6px 12px}
-  .q-addr-bar{padding:3px 10px;font-size:8px;gap:8px}
-  .opt-cards{gap:4px}
-  .opt-card-body{padding:5px 6px}
-  .opt-card-head{padding:6px 8px;gap:5px}
-  .opt-card-val{font-size:14px;white-space:nowrap}
-  .opt-card-lbl{font-size:10px;min-width:100px}
-  .opt-card-row{padding:5px 0;gap:8px}
-  .prem-val{font-size:14px}
-  .mat-val{font-size:14px}
+  /* Outer containers — zero side margins, full viewport */
+  .app-body{padding:6px 6px 80px}
+  .qdoc{margin-left:0!important;margin-right:0!important;border-radius:8px;width:100%;box-sizing:border-box}
+  /* Inner sections */
+  .qbody{padding:6px 8px}
+  .q-lh-top{padding:5px 8px}
+  .q-title-band{padding:5px 10px}
+  .q-addr-bar{padding:3px 8px;font-size:8px;gap:6px}
+  /* Option cards — full width, compact */
+  .opt-cards{gap:6px}
+  .opt-card-body{padding:6px 8px}
+  .opt-card-head{padding:5px 8px;gap:5px}
+  .opt-card-lbl{font-size:10px;min-width:90px;flex-shrink:0}
+  .opt-card-val{font-size:13px;white-space:nowrap}
+  .opt-card-row{padding:5px 0;gap:6px}
+  .prem-val{font-size:13px}
+  .mat-val{font-size:13px}
   .opt-card-title{font-size:12px}
   .opt-card-badge{font-size:8px}
+  /* Premium breakdown */
   .bd-compare{gap:4px}
-  .bd-line{padding:3px 5px;font-size:9px}
+  .bd-line{padding:3px 6px;font-size:9px}
   .bl-val,.bl-nil,.bl-dab-val{font-size:9px}
-  .bd-col-head{font-size:9px;padding:4px 6px}
+  .bd-col-head{font-size:9px;padding:4px 8px}
+  /* Features */
   .feat-item{font-size:10px}
   .feat-title{font-size:9px}
   .disclaimer{font-size:9px;padding:5px 8px}
+  /* Client block */
   .cli-block{padding:6px 8px}
   .cli-name{font-size:13px}
-  .cli-sub{font-size:10px}
-  .cli-av{width:34px;height:34px;font-size:12px;flex-shrink:0}
-  .qfoot{padding:6px 10px}
+  .cli-sub{font-size:10px;line-height:1.5}
+  .cli-av{width:32px;height:32px;font-size:11px;flex-shrink:0}
+  /* Footer */
+  .qfoot{padding:6px 8px}
+  .qfoot-left{font-size:8px}
+  .qfoot-right{font-size:8px;text-align:right}
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>

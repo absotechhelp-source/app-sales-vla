@@ -2890,6 +2890,52 @@ function resetAltForm(){
 }
 
 /* ═══════════════════════════════════════════
+   RESET QUOTE
+═══════════════════════════════════════════ */
+function resetQuote(){
+  // Clear all data state
+  quoteData=null; selectedOcc=null; anb=null;
+  // Clear all form fields
+  ['c-fname','c-mname','c-lname','c-name',
+   'c-phone','c-email','c-occ',
+   'c-area','c-city',
+   'p-sa','p-prem'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  const distEl=document.getElementById('c-district');
+  if(distEl) distEl.value='';
+  document.getElementById('c-gender').value='';
+  document.getElementById('c-dob').value='';
+  document.getElementById('p-term').value='';
+  document.getElementById('p-freq').value='monthly';
+  document.getElementById('p-dab').checked=false;
+  // Hide all dynamic UI elements
+  ['dab-occ-info','occ-info','occ-dropdown','anb-pill',
+   'quote-output','sync-status','age-err','sa-err','prem-err',
+   'term-err','c-occ-err','dob-err','doq-err'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+  // Reset date of quote to today
+  const t=new Date();
+  document.getElementById('c-doq').value=
+    `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+  clrErr();
+  setMode('sa');
+  switchTab('quote');
+  // Small delay to let DOM settle, then show gen-btn
+  setTimeout(()=>{
+    const gb=document.getElementById('gen-btn');
+    if(gb) gb.style.display='flex';
+    document.getElementById('quote-output').style.display='none';
+    const ab=document.getElementById('app-body');
+    if(ab) ab.scrollTop=0;
+    showToast('Ready for new quote');
+  }, 50);
+}
+
+/* ═══════════════════════════════════════════
    PWA SERVICE WORKER
 ═══════════════════════════════════════════ */
 if('serviceWorker' in navigator){

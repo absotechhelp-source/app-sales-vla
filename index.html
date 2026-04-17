@@ -116,7 +116,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .q-title-band{background:var(--M);padding:7px 16px;display:flex;align-items:center;justify-content:space-between}
 .q-title-word{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--CR);letter-spacing:.12em;text-transform:uppercase}
 .q-title-ref{text-align:right}
-.q-title-refnum{font-size:10px;color:rgba(255,255,255,.9);font-weight:600}
+.q-title-refnum{font-size:9px;color:rgba(255,255,255,.9);font-weight:600;word-break:break-all}
 .q-title-date{font-size:9px;color:rgba(255,255,255,.65);margin-top:2px}
 
 .qbody{padding:8px 14px}
@@ -256,7 +256,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .opt-card-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid #f2e9ea;gap:6px}
 .opt-card-row:last-child{border-bottom:none}
 .opt-card-lbl{font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.04em;flex-shrink:0}
-.opt-card-val{font-size:15px;font-weight:800;color:#641414;text-align:right;white-space:nowrap}
+.opt-card-val{font-size:15px;font-weight:800;color:#641414;text-align:right;word-break:break-word}
 .opt-card-val.prem-val{color:#641414;font-size:15px;font-weight:800}
 .opt-card-val.mat-val{color:#641414}
 .opt-card-val .freq{display:none}
@@ -361,6 +361,41 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .profile-avatar{width:72px;height:72px;border-radius:50%;background:var(--M);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--CR);margin:0 auto 10px}
 .profile-name{font-size:18px;font-weight:700;color:var(--T);text-align:center}
 .profile-role{font-size:12px;color:var(--T2);text-align:center;margin-top:3px;margin-bottom:20px}
+
+/* ── RESPONSIVE: Phone screens ── */
+@media screen and (max-width: 480px){
+  .app-body{padding:8px 8px 80px}
+  .qbody{padding:6px 10px}
+  .q-lh-top{padding:6px 10px}
+  .q-title-band{padding:6px 12px}
+  .q-addr-bar{padding:3px 10px;font-size:8px;gap:8px}
+  .opt-cards{gap:5px}
+  .opt-card-body{padding:5px 7px}
+  .opt-card-head{padding:6px 8px;gap:5px}
+  .opt-card-val{font-size:13px;white-space:normal;word-break:break-all}
+  .opt-card-lbl{font-size:9px}
+  .opt-card-row{padding:4px 0;gap:4px}
+  .prem-val{font-size:13px}
+  .mat-val{font-size:13px}
+  .opt-card-title{font-size:12px}
+  .opt-card-badge{font-size:8px}
+  .bd-compare{gap:5px}
+  .bd-line{padding:3px 6px;font-size:10px}
+  .bl-val,.bl-nil,.bl-dab-val{font-size:10px}
+  .bd-col-head{font-size:10px;padding:5px 8px}
+  .feat-item{font-size:10px}
+  .feat-title{font-size:9px}
+  .disclaimer{font-size:9px;padding:5px 8px}
+  .cli-block{padding:6px 8px}
+  .cli-name{font-size:13px}
+  .cli-sub{font-size:10px}
+  .cli-av{width:34px;height:34px;font-size:12px;flex-shrink:0}
+  .q-title-text{font-size:14px}
+  .q-ref-text{font-size:9px}
+  .qfoot{padding:6px 10px}
+  .qfoot-left{font-size:8px}
+  .qfoot-right{font-size:8px}
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -2303,7 +2338,7 @@ function openHistModal(idx){
           <div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.05em">Pure Savings Plan</div>
         </div>
         <div style="text-align:right">
-          <div id="hm-q-ref" style="font-size:10px;color:rgba(255,255,255,.9);font-weight:600"></div>
+          <div id="hm-q-ref" style="font-size:9px;color:rgba(255,255,255,.9);font-weight:600;word-break:break-all"></div>
           <div id="hm-q-date" style="font-size:9px;color:rgba(255,255,255,.65);margin-top:2px"></div>
         </div>
       </div>

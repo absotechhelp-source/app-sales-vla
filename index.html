@@ -2419,9 +2419,9 @@ function shareHistEmail(){
   showToast('Opening email… Print dialog will follow',3500);
   setTimeout(()=>{
     const origTitle = document.title;
-    document.title = 'VLA-Quote-' + q.ref;
+    window.onbeforeprint = ()=>{ document.title = 'VLA-Quote-' + q.ref; };
+    window.onafterprint  = ()=>{ document.title = origTitle; window.onbeforeprint=null; window.onafterprint=null; };
     window.print();
-    setTimeout(()=>{ document.title = origTitle; }, 1000);
   }, 3000);
 }
 
@@ -2690,9 +2690,9 @@ function shareEmail(){
   showToast('Opening email… Print dialog will follow',3500);
   setTimeout(()=>{
     const origTitle = document.title;
-    document.title = 'VLA-Quote-' + q.ref;
+    window.onbeforeprint = ()=>{ document.title = 'VLA-Quote-' + q.ref; };
+    window.onafterprint  = ()=>{ document.title = origTitle; window.onbeforeprint=null; window.onafterprint=null; };
     window.print();
-    setTimeout(()=>{ document.title = origTitle; }, 1000);
   }, 3000);
 }
 
@@ -2702,9 +2702,12 @@ function shareEmail(){
 function printQuote(){
   const ref = quoteData ? quoteData.ref : null;
   const origTitle = document.title;
-  if(ref) document.title = 'VLA-Quote-' + ref;
+  if(ref){
+    // Set title using beforeprint event — fires right before dialog opens
+    window.onbeforeprint = ()=>{ document.title = 'VLA-Quote-' + ref; };
+    window.onafterprint  = ()=>{ document.title = origTitle; window.onbeforeprint=null; window.onafterprint=null; };
+  }
   window.print();
-  setTimeout(()=>{ document.title = origTitle; }, 1000);
 }
 
 /* ═══════════════════════════════════════════

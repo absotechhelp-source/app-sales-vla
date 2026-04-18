@@ -2745,17 +2745,21 @@ function shareEmail(){
    PRINT WITH QUOTE REFERENCE AS FILENAME
 ═══════════════════════════════════════════ */
 function printQuote(){
-  // window.print() is blocked in PWA standalone mode on Android Chrome.
-  // Detect standalone and open in browser tab instead.
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-    || window.navigator.standalone === true;
-
-  if(isStandalone){
-    // Open current page in browser tab where printing works
-    window.open(window.location.href, '_blank');
-    showToast('Tap Share → Print in the browser to save PDF', 5000);
-  } else {
+  // Try window.print() directly — works in browser and most PWA versions.
+  // If nothing happens (older Android PWA), show guidance to user.
+  try {
     window.print();
+    // On some Android PWA builds print() returns silently without doing anything.
+    // Show a brief fallback hint after a short delay.
+    setTimeout(()=>{
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+        || window.navigator.standalone === true;
+      if(isStandalone){
+        showToast('If no dialog appeared: tap ⋮ → Open in Chrome → Save PDF', 5000);
+      }
+    }, 1500);
+  } catch(e){
+    showToast('Tap ⋮ → Open in Chrome → then Save PDF', 5000);
   }
 }
 

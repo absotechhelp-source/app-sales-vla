@@ -2662,13 +2662,15 @@ function shareSMS(){
   const aTotal=Math.round(q.basicP+fee);
   const freq=q.isMo?'mo':'yr';
   const {mobile}=loadProfileData();
+  const dabAmt=Math.round(q.dabP||0);
   const txt=
     'VLA Quote '+q.ref+'\n'+
     q.clientName+' | '+q.term+'yrs\n'+
     'Sum Assured: '+mk(q.SA)+'\n'+
-    'Premium: '+mk(aTotal)+'/'+freq+'\n'+
-    'Or With DAB: '+mk(q.totalP)+'/'+freq+'\n'+
+    (dabAmt?'DAB Cover: '+mk(q.SA)+'\n':'')+
     'Proj Maturity: '+mk(q.projM)+'\n'+
+    'Premium: '+mk(aTotal)+'/'+freq+'\n'+
+    (dabAmt?'Or With DAB: '+mk(q.totalP)+'/'+freq+'\n':'')+
     'Agent: '+q.agent+
     (mobile?' - '+mobile:'')+
     ' - Call Centre 3043';
@@ -2719,10 +2721,12 @@ function shareEmail(){
     'Dear '+q.clientName+',\n\n'+
     'Please find your Pure Savings Plan quotation attached (PDF).\n\n'+
     'Ref: '+q.ref+'\n'+
-    'Sum Assured: '+mk(q.SA)+'\n\n'+
-    'Option A — Savings Only: '+mk(aTotal)+'/'+(q.isMo?'month':'year')+'\n'+
-    'Option B — Savings + DAB: '+mk(q.totalP)+'/'+(q.isMo?'month':'year')+'\n'+
+    'Sum Assured: '+mk(q.SA)+'\n'+
+    (q.dabIncluded?'DAB Cover: '+mk(q.SA)+'\n':'')+
     'Projected Maturity: '+mk(q.projM)+'\n\n'+
+    'PREMIUM\n'+
+    'Option A — Savings Only: '+mk(aTotal)+'/'+(q.isMo?'month':'year')+'\n'+
+    'Option B — Savings + DAB: '+mk(q.totalP)+'/'+(q.isMo?'month':'year')+'\n\n'+
     'Full Terms and Conditions apply.\n\n'+
     'Kind regards,\n'+q.agent+
     (loadProfileData().mobile ? '\n📱 '+loadProfileData().mobile+'\n' : '')+

@@ -2661,17 +2661,17 @@ function shareSMS(){
   const fee=q.isMo?FEE_M:FEE_A;
   const aTotal=Math.round(q.basicP+fee);
   const freq=q.isMo?'mo':'yr';
-  // Short plain text only — no URLs to prevent MMS conversion
+  const {mobile}=loadProfileData();
   const txt=
     'VLA Quote '+q.ref+'\n'+
     q.clientName+' | '+q.term+'yrs\n'+
-    'SA: '+mk(q.SA)+'\n'+
-    'A: '+mk(aTotal)+'/'+freq+'\n'+
-    'B+DAB: '+mk(q.totalP)+'/'+freq+'\n'+
-    'Maturity: '+mk(q.projM)+'\n'+
+    'Sum Assured: '+mk(q.SA)+'\n'+
+    'Premium: '+mk(aTotal)+'/'+freq+'\n'+
+    'Or With DAB: '+mk(q.totalP)+'/'+freq+'\n'+
+    'Proj Maturity: '+mk(q.projM)+'\n'+
     'Agent: '+q.agent+
-    (loadProfileData().mobile ? ' | '+loadProfileData().mobile : '')+
-    ' | 3043';
+    (mobile?' - '+mobile:'')+
+    ' - Call Centre 3043';
   window.open('sms:'+encodeURIComponent(q.clientPhone||'')+'?body='+encodeURIComponent(txt),'_blank');
 }
 

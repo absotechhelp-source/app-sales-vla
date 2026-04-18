@@ -2096,6 +2096,8 @@ function generateQuote(){
   const gb=document.getElementById('gen-btn');if(gb)gb.style.display='none';
   saveQuoteLocally(quoteData);
   syncToSheets(quoteData);
+  // Set page title to quote ref — ensures PDF filename is correct on ALL browsers/devices
+  document.title = 'VLA-Quote-' + quoteData.ref;
 }
 
 /* ═══════════════════════════════════════════
@@ -2419,8 +2421,7 @@ function shareHistEmail(){
   showToast('Opening email… Print dialog will follow',3500);
   setTimeout(()=>{
     const origTitle = document.title;
-    window.onbeforeprint = ()=>{ document.title = 'VLA-Quote-' + q.ref; };
-    window.onafterprint  = ()=>{ document.title = origTitle; window.onbeforeprint=null; window.onafterprint=null; };
+    document.title = 'VLA-Quote-' + q.ref;
     window.print();
   }, 3000);
 }
@@ -2689,9 +2690,6 @@ function shareEmail(){
   window.open('mailto:'+encodeURIComponent(q.clientEmail||'')+'?subject='+sub+'&body='+body,'_blank');
   showToast('Opening email… Print dialog will follow',3500);
   setTimeout(()=>{
-    const origTitle = document.title;
-    window.onbeforeprint = ()=>{ document.title = 'VLA-Quote-' + q.ref; };
-    window.onafterprint  = ()=>{ document.title = origTitle; window.onbeforeprint=null; window.onafterprint=null; };
     window.print();
   }, 3000);
 }
@@ -2700,13 +2698,8 @@ function shareEmail(){
    PRINT WITH QUOTE REFERENCE AS FILENAME
 ═══════════════════════════════════════════ */
 function printQuote(){
-  const ref = quoteData ? quoteData.ref : null;
-  const origTitle = document.title;
-  if(ref){
-    // Set title using beforeprint event — fires right before dialog opens
-    window.onbeforeprint = ()=>{ document.title = 'VLA-Quote-' + ref; };
-    window.onafterprint  = ()=>{ document.title = origTitle; window.onbeforeprint=null; window.onafterprint=null; };
-  }
+  // document.title is already set to the quote ref by generateQuote()
+  // so the PDF filename is correct on all browsers including mobile
   window.print();
 }
 
@@ -2934,6 +2927,7 @@ function resetQuote(){
     document.getElementById('quote-output').style.display='none';
     const ab=document.getElementById('app-body');
     if(ab) ab.scrollTop=0;
+    document.title = 'VLA Agent App';
     showToast('Ready for new quote');
   }, 50);
 }

@@ -2690,7 +2690,8 @@ function shareEmail(){
   window.open('mailto:'+encodeURIComponent(q.clientEmail||'')+'?subject='+sub+'&body='+body,'_blank');
   showToast('Opening email… Print dialog will follow',3500);
   setTimeout(()=>{
-    window.print();
+    // Use printQuote() which handles PWA standalone mode
+    printQuote();
   }, 3000);
 }
 
@@ -2698,9 +2699,18 @@ function shareEmail(){
    PRINT WITH QUOTE REFERENCE AS FILENAME
 ═══════════════════════════════════════════ */
 function printQuote(){
-  // document.title is already set to the quote ref by generateQuote()
-  // so the PDF filename is correct on all browsers including mobile
-  window.print();
+  // window.print() is blocked in PWA standalone mode on Android Chrome.
+  // Detect standalone and open in browser tab instead.
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+    || window.navigator.standalone === true;
+
+  if(isStandalone){
+    // Open current page in browser tab where printing works
+    window.open(window.location.href, '_blank');
+    showToast('Tap Share → Print in the browser to save PDF', 5000);
+  } else {
+    window.print();
+  }
 }
 
 /* ═══════════════════════════════════════════

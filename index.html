@@ -92,6 +92,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
 .btn-wa{background:#25D366;color:#fff}
 .btn-email-btn{background:var(--M);color:#fff}
 .btn-pdf{background:var(--CR);color:var(--M)}
+.btn-sms{background:#e0f2fe;color:#0369a1}
 .btn-outline{background:transparent;border:1.5px solid var(--BD);color:var(--T2)}
 .action-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .action-row .btn-sm{flex:1;min-width:100px;justify-content:center}
@@ -732,17 +733,22 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
       <!-- QUOTE OUTPUT -->
       <div id="quote-output" style="display:none">
         <div class="action-row">
+          <!-- Order: WhatsApp · SMS · Save PDF · Email · New -->
           <button class="btn-sm btn-wa" onclick="shareWA()">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.851L.057 23.857a.5.5 0 0 0 .603.641l6.258-1.641A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 0 1-5.015-1.376l-.36-.214-3.713.974.993-3.614-.234-.372A9.794 9.794 0 0 1 2.182 12c0-5.417 4.401-9.818 9.818-9.818 5.417 0 9.818 4.401 9.818 9.818 0 5.417-4.401 9.818-9.818 9.818z"/></svg>
             WhatsApp
           </button>
-          <button class="btn-sm btn-email-btn" onclick="shareEmail()">
-            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            Email
+          <button class="btn-sm btn-sms" onclick="shareSMS()">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            SMS
           </button>
           <button class="btn-sm btn-pdf" onclick="printQuote()">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
             Save PDF
+          </button>
+          <button class="btn-sm btn-email-btn" onclick="shareEmail()">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Email
           </button>
           <button class="btn-sm btn-outline" onclick="resetQuote()">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
@@ -2638,6 +2644,28 @@ function captureQuotePDF(elId, filename, callback){
 /* ═══════════════════════════════════════════
    SHARE — WhatsApp & Email
 ═══════════════════════════════════════════ */
+function shareSMS(){
+  if(!quoteData){showToast('Generate a quote first');return;}
+  const q=quoteData;
+  const fee=q.isMo?FEE_M:FEE_A;
+  const aTotal=Math.round(q.basicP+fee);
+  const txt=
+    'VLA Pure Savings Plan Quotation\n'+
+    'Ref: '+q.ref+'\n'+
+    'Client: '+q.clientName+'\n'+
+    'Sum Assured: '+mk(q.SA)+'\n'+
+    'Term: '+q.term+' years\n\n'+
+    'Option A (Savings Only)\n'+
+    'Premium: '+mk(aTotal)+'/'+(q.isMo?'mo':'yr')+'\n'+
+    'Maturity: '+mk(q.projM)+'\n\n'+
+    'Option B (Savings + DAB)\n'+
+    'Premium: '+mk(q.totalP)+'/'+(q.isMo?'mo':'yr')+'\n'+
+    'Maturity: '+mk(q.projM)+'\n\n'+
+    'Call 3043 | vanguardlifemw.com\n'+
+    'Agent: '+q.agent;
+  window.open('sms:'+encodeURIComponent(q.clientPhone||'')+'?body='+encodeURIComponent(txt),'_blank');
+}
+
 function shareWA(){
   if(!quoteData){showToast('Generate a quote first');return;}
   captureQuoteImageFromEl(document.getElementById('q-doc'),canvas=>{

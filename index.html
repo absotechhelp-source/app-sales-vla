@@ -740,7 +740,7 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
           </button>
           <button class="btn-sm btn-sms" onclick="shareSMS()">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            SMS
+            Text
           </button>
           <button class="btn-sm btn-pdf" onclick="printQuote()">
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
@@ -956,18 +956,22 @@ input:checked+.tog-trk:before{transform:translateX(17px)}
           <div class="bcard-role">Sales Agent · Vanguard Life Assurance</div>
           <div class="bcard-divider"></div>
           <div class="bcard-contact">
-            <div class="bcard-contact-row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.61 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.16 6.16l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
-              <span id="bc-phone-vla">+265 887 094 872 (VLA)</span>
-            </div>
+            <!-- Agent mobile — primary contact -->
             <div class="bcard-contact-row" id="bc-mobile-row" style="display:none">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
               <span id="bc-mobile">—</span>
             </div>
+            <!-- Agent email -->
             <div class="bcard-contact-row" id="bc-email-row" style="display:none">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               <span id="bc-email">—</span>
             </div>
+            <!-- VLA call centre — alternative -->
+            <div class="bcard-contact-row">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.61 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.16 6.16l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+              <span id="bc-phone-vla">Alt: Call 3043 (VLA)</span>
+            </div>
+            <!-- Website -->
             <div class="bcard-contact-row">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               <span>vanguardlifemw.com</span>
@@ -2198,7 +2202,11 @@ function renderQuoteDoc(q, docId, isModal){
      <div class="feat-item">${ck}<div class="feat-txt"><strong>Loan facility:</strong> <span>Up to 95% of surrender value once acquired.</span></div></div>`;
 
   const agentFoot = document.getElementById(isModal ? 'hm-q-agent-foot' : 'q-agent-foot');
-  if(agentFoot) agentFoot.innerHTML=`Agent: ${q.agent}<br>${fmtDate(doq)}`;
+  const {mobile:agMobile} = loadProfileData();
+  if(agentFoot) agentFoot.innerHTML=
+    `Agent: ${q.agent}`+
+    (agMobile ? `<br>📱 ${agMobile}` : '')+
+    `<br>Alt: 3043 (VLA)<br>${fmtDate(doq)}`;
 }
 
 /* ═══════════════════════════════════════════
@@ -2420,8 +2428,11 @@ function shareHistEmail(){
     'Option A — Savings Only: '+mk(aTotal)+'/'+( q.isMo?'month':'year')+'\n'+
     'Option B — Savings + DAB: '+mk(q.totalP)+'/'+( q.isMo?'month':'year')+'\n'+
     'Projected Maturity: '+mk(q.projM)+'\n\n'+
-    'Full Terms and Conditions apply. Call 3043 or visit vanguardlifemw.com\n\n'+
-    'Kind regards,\n'+q.agent+'\nVanguard Life Assurance Company Limited'
+    'Full Terms and Conditions apply.\n\n'+
+    'Kind regards,\n'+q.agent+
+    (loadProfileData().mobile ? '\n📱 '+loadProfileData().mobile+'\n' : '')+
+    '📞 3043 (VLA Call Centre)\n'+
+    'Vanguard Life Assurance Company Limited'
   );
   window.open('mailto:'+encodeURIComponent(q.clientEmail||'')+'?subject='+sub+'&body='+body,'_blank');
   showToast('Opening email… Print dialog will follow',3500);
@@ -2649,20 +2660,18 @@ function shareSMS(){
   const q=quoteData;
   const fee=q.isMo?FEE_M:FEE_A;
   const aTotal=Math.round(q.basicP+fee);
+  const freq=q.isMo?'mo':'yr';
+  // Short plain text only — no URLs to prevent MMS conversion
   const txt=
-    'VLA Pure Savings Plan Quotation\n'+
-    'Ref: '+q.ref+'\n'+
-    'Client: '+q.clientName+'\n'+
-    'Sum Assured: '+mk(q.SA)+'\n'+
-    'Term: '+q.term+' years\n\n'+
-    'Option A (Savings Only)\n'+
-    'Premium: '+mk(aTotal)+'/'+(q.isMo?'mo':'yr')+'\n'+
-    'Maturity: '+mk(q.projM)+'\n\n'+
-    'Option B (Savings + DAB)\n'+
-    'Premium: '+mk(q.totalP)+'/'+(q.isMo?'mo':'yr')+'\n'+
-    'Maturity: '+mk(q.projM)+'\n\n'+
-    'Call 3043 for full details\n'+
-    'Agent: '+q.agent;
+    'VLA Quote '+q.ref+'\n'+
+    q.clientName+' | '+q.term+'yrs\n'+
+    'SA: '+mk(q.SA)+'\n'+
+    'A: '+mk(aTotal)+'/'+freq+'\n'+
+    'B+DAB: '+mk(q.totalP)+'/'+freq+'\n'+
+    'Maturity: '+mk(q.projM)+'\n'+
+    'Agent: '+q.agent+
+    (loadProfileData().mobile ? ' | '+loadProfileData().mobile : '')+
+    ' | 3043';
   window.open('sms:'+encodeURIComponent(q.clientPhone||'')+'?body='+encodeURIComponent(txt),'_blank');
 }
 
@@ -2690,8 +2699,10 @@ function shareWA(){
         '*OPTION B — Savings + DAB*\n'+
         '💳 Premium: '+mk(q.totalP)+'/'+(q.isMo?'month':'year')+'\n\n'+
         '_Indicative only. Subject to underwriting._\n'+
-        '📞 3043 | 🌐 vanguardlifemw.com\n'+
-        'Agent: '+q.agent;
+        'Agent: '+q.agent+
+        (loadProfileData().mobile ? '\n📱 '+loadProfileData().mobile : '\n📞 3043 (VLA)')+
+        (loadProfileData().mobile ? '\n📞 3043 (VLA Call Centre)' : '')+
+        '\n🌐 vanguardlifemw.com';
       window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
       showToast('✓ Image saved! Open WhatsApp → attach from gallery',4500);
     },800);
@@ -2712,8 +2723,11 @@ function shareEmail(){
     'Option A — Savings Only: '+mk(aTotal)+'/'+(q.isMo?'month':'year')+'\n'+
     'Option B — Savings + DAB: '+mk(q.totalP)+'/'+(q.isMo?'month':'year')+'\n'+
     'Projected Maturity: '+mk(q.projM)+'\n\n'+
-    'Full Terms and Conditions apply. Call 3043 or visit vanguardlifemw.com\n\n'+
-    'Kind regards,\n'+q.agent+'\nVanguard Life Assurance Company Limited'
+    'Full Terms and Conditions apply.\n\n'+
+    'Kind regards,\n'+q.agent+
+    (loadProfileData().mobile ? '\n📱 '+loadProfileData().mobile+'\n' : '')+
+    '📞 3043 (VLA Call Centre)\n'+
+    'Vanguard Life Assurance Company Limited'
   );
   window.open('mailto:'+encodeURIComponent(q.clientEmail||'')+'?subject='+sub+'&body='+body,'_blank');
   showToast('Opening email… Print dialog will follow',3500);
@@ -2841,9 +2855,9 @@ function shareBusinessCard(){
     '━━━━━━━━━━━━━━━━━━\n'+
     '👤 '+currentAgent+'\n'+
     '🏢 Sales Agent\n'+
-    (mobile?'📱 '+mobile+'\n':'')+
+    (mobile?'📱 '+mobile+' _(Primary)_\n':'📞 3043 (VLA) — ask for me\n')+
     (email?'✉️ '+email+'\n':'')+
-    '📞 +265 887 094 872 (VLA)\n'+
+    '📞 3043 (VLA Call Centre)\n'+
     '🌐 vanguardlifemw.com\n'+
     '━━━━━━━━━━━━━━━━━━\n'+
     '_"Your financial light for life"_';
